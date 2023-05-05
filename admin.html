@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Display User Data</title>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
+    <style>
+        #customers {
+          font-family: Arial, Helvetica, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+        
+        #customers td, #customers th {
+          border: 1px solid #ddd;
+          padding: 8px;
+        }
+        
+        #customers tr:nth-child(even){background-color: #f2f2f2;}
+        
+        #customers tr:hover {background-color: #ddd;}
+        
+        #customers th {
+          padding-top: 12px;
+          padding-bottom: 12px;
+          text-align: left;
+          background-color: #fa6e03;
+          color: white;
+        }
+        </style>
+        
+</head>
+
+<body>
+    <table id="customers">
+        <thead>
+            <th>Name: </th>
+            <th>Mail Id: </th>
+            <th>Score: </th>
+        </thead>
+        <tbody id="tbody1">
+
+        </tbody>
+    </table>
+    <script>
+         
+        // Set the configuration for your app
+        // TODO: Replace with your project's config object
+        var config = {
+            apiKey: "AIzaSyCRmi_J1XzWMHpEtKu7EK77AvsxbsncXxo",
+             authDomain: "elitmus-puzzle-hunt.firebaseapp.com",
+            databaseURL: "https://elitmus-puzzle-hunt-default-rtdb.asia-southeast1.firebasedatabase.app",
+             projectId: "elitmus-puzzle-hunt",
+            storageBucket: "elitmus-puzzle-hunt.appspot.com",
+            messagingSenderId: "924677180132",
+            appId: "1:924677180132:web:4e7d65d50a430332293af1",
+             measurementId: "G-VSJESPDVC1",
+         
+        };
+        firebase.initializeApp(config);
+        
+
+      
+        // const readFromDatabaseOn = (id) => {
+        //     firebase
+        //         .database()
+        //         .ref(id)
+        //         .on("value", function (snapshot) {
+        //         console.log(snapshot.val().name);
+        //         console.log(snapshot.val().email);
+               
+        //         });
+        //     };
+        // Get the uid of the user you want to retrieve data for
+        // var database = firebase.database();
+
+        // // Get a reference to the users node in the database
+        // var usersRef = database.ref('users/');
+        
+        // // Attach a listener to read the data at our users reference
+        // usersRef.on('value', function (snapshot) {
+        //     // Get the user data from the snapshot
+        //     var userData = snapshot.val();
+            
+        //     // Display the user data on the page
+        //       console.log('User data:', userData);
+        //     // console.log('User Name:', userData.name);
+        //     document.getElementById('user-email').textContent = userData.uid.email;
+        //     document.getElementById('user-full').textContent = userData.uid.name;
+        //     document.getElementById('user-log').textContent = userData.uid.last_login;
+        // });
+        
+                var query = firebase.database().ref("users").orderByKey();
+                query.once("value")
+        .then(function(snapshot) {
+            snapshot.forEach(function(childSnapshot) {
+               
+            // key will be "ada" the first time and "alan" the second time
+            var key = childSnapshot.key;
+            // childData will be the actual contents of the child
+            var childData = childSnapshot.val();
+            var full_name=childData.name;
+            var mailid=childData.email;
+            var score=0;
+            AddItemsToTable(full_name,mailid,score)
+        });
+        });
+       function AddItemsToTable(full_name,mailid,score){
+        var tbody=document.getElementById('tbody1');
+        var trow=document.createElement('tr');
+        var td1=document.createElement('td');
+        var td2=document.createElement('td');
+        var td3=document.createElement('td');
+        td1.innerHTML=full_name;
+        td2.innerHTML=mailid;
+        td3.innerHTML=score;
+        trow.appendChild(td1);
+        trow.appendChild(td2);
+        trow.appendChild(td3);
+        tbody.appendChild(trow);
+       }
+
+    </script>
+</body>
+
+</html>
