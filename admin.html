@@ -103,7 +103,7 @@
             var childData = childSnapshot.val();
             var full_name=childData.name;
             var mailid=childData.email;
-            var score=0;
+            var score=childData.score;
             AddItemsToTable(full_name,mailid,score)
         });
         });
