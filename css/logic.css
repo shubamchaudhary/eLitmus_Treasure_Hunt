@@ -18,8 +18,8 @@ h1 {
 }
 
 h2 {
-    background-color: rgb(33, 95, 75);
-   font-size: 50px;
+    background-color: rgb(24, 71, 57);
+   font-size: 30px;
     color: rgb(255, 255, 255);
     margin: 0;
     text-align: center;
@@ -121,4 +121,13 @@ input {
     border-top-left-radius: 8%;
     border-top-right-radius: 2%;
     border-image: -webkit-linear-gradient(25deg, #FFBE0B, #FB5607, #FF006E, #8338EC, #3A86FF) 1;
+}
+.if{
+   
+    text-align: right;
+    color: azure;
+}
+.imgg{
+    height: 30px;
+    width: 30px;
 }
