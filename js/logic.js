@@ -131,6 +131,7 @@ function onPreviousButtonClick() {
     }
 }
 
+
 function logout(){
     console.log("ro")
     var config = {
