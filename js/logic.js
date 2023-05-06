@@ -136,6 +136,36 @@ function onPreviousButtonClick() {
     }
 }
 
+function logout(){
+    console.log("ro")
+    var config = {
+        apiKey: "AIzaSyCRmi_J1XzWMHpEtKu7EK77AvsxbsncXxo",
+         authDomain: "elitmus-puzzle-hunt.firebaseapp.com",
+        databaseURL: "https://elitmus-puzzle-hunt-default-rtdb.asia-southeast1.firebasedatabase.app",
+         projectId: "elitmus-puzzle-hunt",
+        storageBucket: "elitmus-puzzle-hunt.appspot.com",
+        messagingSenderId: "924677180132",
+        appId: "1:924677180132:web:4e7d65d50a430332293af1",
+         measurementId: "G-VSJESPDVC1",
+     
+    };
+    console.log("rooo")
+    
+    if (!firebase.apps.length) {
+        firebase.initializeApp(config);
+        console.log("ro")
+     }
+     else {
+        firebase.app(); // if already initialized, use that one
+     }
+     console.log("ro")
+    firebase.auth().signOut().then(() => {
+        console.log("log out done")
+      }).catch((error) => {
+        console.log("not")
+      });
+}
+
 // Add an event listener to the next button
 // nextButton.addEventListener("click", onNextButtonClick);
 function myFunction() {
@@ -155,16 +185,49 @@ function myFunction() {
 
     else if (modi == a) {
         alert("Answer is Correct and find the Next Clue");
-       
-        
-        //firebase.initializeApp(firebaseConfig);
-        // 
-       // const auth = firebase.auth()
-       // const database = firebase.database()
         Score += 1;
-       // var database_ref = database.ref();
-        //database_ref.child('users/' + user.uid.score).set(Score);
+        var config = {
+            apiKey: "AIzaSyCRmi_J1XzWMHpEtKu7EK77AvsxbsncXxo",
+             authDomain: "elitmus-puzzle-hunt.firebaseapp.com",
+            databaseURL: "https://elitmus-puzzle-hunt-default-rtdb.asia-southeast1.firebasedatabase.app",
+             projectId: "elitmus-puzzle-hunt",
+            storageBucket: "elitmus-puzzle-hunt.appspot.com",
+            messagingSenderId: "924677180132",
+            appId: "1:924677180132:web:4e7d65d50a430332293af1",
+             measurementId: "G-VSJESPDVC1",
          
+        };
+        
+        if (!firebase.apps.length) {
+            firebase.initializeApp(config);
+         }else {
+            firebase.app(); // if already initialized, use that one
+         }
+        const auth = firebase.auth()
+        const database = firebase.database()
+
+        var database_ref = database.ref()
+        database_ref.child('users/').once("value")
+        .then(function(snapshot) {
+            snapshot.forEach(function(childSnapshot) {     
+                var user = auth.currentUser
+                // key will be "ada" the first time and "alan" the second time
+                var key = childSnapshot.key;
+                
+                // childData will be the actual contents of the child
+                var childData = childSnapshot.val();
+                //console.log(user.email == childData.email)
+                if(user.email == childData.email){
+                    var user_data = {
+                        score: Score
+                    }
+                    database_ref.child('users/' + key).update(user_data)
+                }
+
+                console.log(childData.score)
+
+            });
+        });
         document.getElementById("score").innerHTML = Score;
         nextButton.addEventListener("click", onNextButtonClick);
         currentChallengeIndex++;
@@ -188,3 +251,4 @@ function myFunction() {
 
 PrevButton.addEventListener("click", onPreviousButtonClick);
 showChallenge();
+
