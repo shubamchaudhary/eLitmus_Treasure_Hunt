@@ -48,14 +48,9 @@ const challenges = [
         description: "slove the puzzle to win the Treasure",
         imageUrl: "images/level9.webp",
         ans: "what was in my coat pocket"
-    },
-
-    {
-        level: 9,
-        description: "congratulations",
-        imageUrl: "images/congo.webp",
-        
     }
+
+   
 
 ]
 
@@ -169,6 +164,7 @@ function logout(){
 // Add an event listener to the next button
 // nextButton.addEventListener("click", onNextButtonClick);
 function myFunction() {
+    
     var input = document.getElementById("answer").value;
     var modi = input.toLowerCase();
 
@@ -184,6 +180,7 @@ function myFunction() {
     }
 
     else if (modi == a) {
+        
         alert("Answer is Correct and find the Next Clue");
         Score += 1;
         var config = {
@@ -231,8 +228,16 @@ function myFunction() {
         document.getElementById("score").innerHTML = Score;
         nextButton.addEventListener("click", onNextButtonClick);
         currentChallengeIndex++;
-        showChallenge();
-        document.getElementById("answer").value = "";
+        if(currentChallengeIndex==challenges.length){
+            alert("Congratulations u have completed challange")
+            logout();
+            window.location.href="index.html";
+        }
+        else{
+            showChallenge();
+            document.getElementById("answer").value = "";
+        }
+    
 
 
     }
