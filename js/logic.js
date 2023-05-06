@@ -47,7 +47,7 @@ const challenges = [
         level: 8,
         description: "slove the puzzle to win the Treasure",
         imageUrl: "images/level9.webp",
-        ans: "what was in my coat pocket"
+        ans: "plant"
     }
 
    
